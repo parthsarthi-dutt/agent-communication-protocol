@@ -1,0 +1,302 @@
+[
+  {
+    "user_id": "USR-001",
+    "query": "I am 28 years old, non-smoker, no health issues at all. Looking for the cheapest option available, ideally under $200 per month.",
+    "expected_policy_id": "POL-001",
+    "rationale": "Young, healthy, non-smoker, budget under $200. POL-001 (Basic at $150/mo) is the cheapest full-coverage option fitting all criteria."
+  },
+  {
+    "user_id": "USR-002",
+    "query": "I'm 42 and I have Type 2 diabetes. I don't smoke. I need something that covers my diabetes treatment and costs under $400 a month.",
+    "expected_policy_id": "POL-002",
+    "rationale": "Age 42, non-smoker, diabetes. POL-002 (Plus at $320/mo) covers diabetes, fits age 18-50, under $400 budget."
+  },
+  {
+    "user_id": "USR-003",
+    "query": "I am 45, I smoke, and have diabetes. Need something under $400.",
+    "expected_policy_id": "POL-006",
+    "rationale": "Smoker aged 45 with diabetes, budget under $400. POL-006 (Smoker Shield at $390/mo) is the only smoker plan under $400 for age 45, though diabetes won't be covered."
+  },
+  {
+    "user_id": "USR-004",
+    "query": "I'm a 60-year-old retiree with heart disease. I've never smoked in my life. Budget is around $500 per month.",
+    "expected_policy_id": "POL-004",
+    "rationale": "Age 60, non-smoker, heart disease. POL-004 (Senior at $480/mo) covers heart disease for ages 55-80, within $500 budget."
+  },
+  {
+    "user_id": "USR-005",
+    "query": "We are a couple in our 30s planning to start a family. Neither of us smokes and we have no health conditions. Need maternity coverage under $300.",
+    "expected_policy_id": "POL-005",
+    "rationale": "30s, non-smokers, no pre-existing, need maternity. POL-005 (Family at $280/mo) covers maternity and pediatric, under $300."
+  },
+  {
+    "user_id": "USR-006",
+    "query": "I am 38, a heavy smoker, and I need basic health coverage. I don't have any pre-existing conditions. My budget is $400 max.",
+    "expected_policy_id": "POL-006",
+    "rationale": "Age 38, smoker, no pre-existing, under $400. POL-006 (Smoker Shield at $390/mo) fits all criteria."
+  },
+  {
+    "user_id": "USR-007",
+    "query": "I'm 55 years old with cancer. I smoke occasionally. I need the best possible coverage regardless of cost.",
+    "expected_policy_id": "POL-007",
+    "rationale": "Age 55, smoker, cancer. No budget limit. POL-007 (Ultimate at $750/mo) is the only plan covering smokers + cancer at age 55."
+  },
+  {
+    "user_id": "USR-008",
+    "query": "I am 22 and perfectly healthy. I just want emergency and hospitalization coverage. Cheapest plan please, under $200.",
+    "expected_policy_id": "POL-008",
+    "rationale": "Age 22, healthy, wants emergency/hospitalization only. POL-008 (Student at $95/mo) is cheapest at that age."
+  },
+  {
+    "user_id": "USR-009",
+    "query": "My mother is 72, she has diabetes and needs cataract surgery coverage. She does not smoke. We can pay up to $500.",
+    "expected_policy_id": "POL-004",
+    "rationale": "Age 72, non-smoker, diabetes + cataract. POL-004 (Senior at $480/mo) covers ages 55-80, diabetes, and cataract surgery, under $500."
+  },
+  {
+    "user_id": "USR-010",
+    "query": "I'm 48, I smoke, I have heart disease, and I need mental health coverage too. Money is not an issue.",
+    "expected_policy_id": "POL-007",
+    "rationale": "Age 48, smoker, heart disease + mental health. No budget limit. POL-003 covers smokers with heart disease and mental health but age cap 65. POL-007 also works. POL-014 covers smokers + heart disease but excludes mental health. POL-007 is the only one covering all three."
+  },
+  {
+    "user_id": "USR-011",
+    "query": "I'm 30, non-smoker, and I want comprehensive coverage for diabetes and mental health. Budget is under $600.",
+    "expected_policy_id": "POL-003",
+    "rationale": "Age 30, non-smoker, diabetes + mental health. POL-003 (Premium at $550/mo) covers both, under $600."
+  },
+  {
+    "user_id": "USR-012",
+    "query": "I'm 70 years old, non-smoker, recently diagnosed with cancer. Need the most comprehensive plan available. No budget limit.",
+    "expected_policy_id": "POL-015",
+    "rationale": "Age 70, non-smoker, cancer. POL-015 (Senior Plus at $680/mo) covers cancer for ages 60-80 non-smokers. POL-007 also works but POL-015 is the specialized senior cancer plan."
+  },
+  {
+    "user_id": "USR-013",
+    "query": "I'm a 20-year-old college student. I just need bare minimum coverage for emergencies. I'm broke, need the absolute cheapest plan possible.",
+    "expected_policy_id": "POL-008",
+    "rationale": "Age 20, student, healthy, wants absolute cheapest. POL-008 (Student at $95/mo) is the lowest premium available."
+  },
+  {
+    "user_id": "USR-014",
+    "query": "I'm 35 and dealing with severe anxiety and depression. I don't smoke. I need a plan that specifically covers mental health treatment. Budget under $300.",
+    "expected_policy_id": "POL-009",
+    "rationale": "Age 35, non-smoker, mental health needs. POL-009 (Mental Wellness at $260/mo) specializes in mental health, under $300."
+  },
+  {
+    "user_id": "USR-015",
+    "query": "I'm 27 and pregnant, due in 4 months. Non-smoker, completely healthy otherwise. Looking for maternity coverage under $350.",
+    "expected_policy_id": "POL-010",
+    "rationale": "Age 27, non-smoker, pregnant, needs maternity. POL-010 (Maternity Care at $340/mo) is the dedicated maternity plan, under $350."
+  },
+  {
+    "user_id": "USR-016",
+    "query": "I am 50, diabetic, non-smoker. I want a plan that specializes in diabetes management including insulin coverage. Budget is $450.",
+    "expected_policy_id": "POL-011",
+    "rationale": "Age 50, non-smoker, diabetic, wants specialized diabetes care. POL-011 (Diabetic Care at $410/mo) is the diabetes-focused plan, under $450."
+  },
+  {
+    "user_id": "USR-017",
+    "query": "My father is 68, non-smoker, has both heart disease and diabetes. He needs a solid plan. We can afford up to $550.",
+    "expected_policy_id": "POL-012",
+    "rationale": "Age 68, non-smoker, heart disease + diabetes. POL-012 (Cardiac Shield at $520/mo) covers heart disease and diabetes for ages 40-75, under $550."
+  },
+  {
+    "user_id": "USR-018",
+    "query": "I'm 25 and healthy. I just need emergency coverage and nothing else. Trying to spend as little as possible, under $120 ideally.",
+    "expected_policy_id": "POL-013",
+    "rationale": "Age 25, healthy, emergency-only, under $120. POL-013 (Budget Saver at $110/mo) is emergency-only coverage for ages 18-40."
+  },
+  {
+    "user_id": "USR-019",
+    "query": "I'm 52, I smoke, I have diabetes and heart disease. I need a plan that covers all of this. Budget around $650.",
+    "expected_policy_id": "POL-014",
+    "rationale": "Age 52, smoker, diabetes + heart disease. POL-014 (Smoker Premium at $620/mo) covers smokers 30-60 with diabetes and heart disease, under $650."
+  },
+  {
+    "user_id": "USR-020",
+    "query": "My grandmother is 75, non-smoker, and was just diagnosed with early stage cancer. She also has diabetes. Budget is $700.",
+    "expected_policy_id": "POL-015",
+    "rationale": "Age 75, non-smoker, cancer + diabetes. POL-015 (Senior Plus at $680/mo) covers cancer and diabetes for ages 60-80, under $700."
+  },
+  {
+    "user_id": "USR-021",
+    "query": "I'm 33 years old. I smoke about a pack a day but I'm otherwise perfectly healthy. Looking for something under $400.",
+    "expected_policy_id": "POL-006",
+    "rationale": "Age 33, smoker, healthy otherwise, under $400. POL-006 (Smoker Shield at $390/mo) is the budget smoker plan."
+  },
+  {
+    "user_id": "USR-022",
+    "query": "I need health insurance for my wife who is 40, doesn't smoke, and was recently diagnosed with Type 1 diabetes. We want the best diabetes coverage possible. Budget is $500.",
+    "expected_policy_id": "POL-011",
+    "rationale": "Age 40, non-smoker, diabetic, best diabetes care. POL-011 (Diabetic Care at $410/mo) is the specialized diabetes plan."
+  },
+  {
+    "user_id": "USR-023",
+    "query": "I'm 29, non-smoker, and have been dealing with bipolar disorder for years. I need mental health coverage but also want decent general coverage. Under $300 please.",
+    "expected_policy_id": "POL-009",
+    "rationale": "Age 29, non-smoker, bipolar (pre-existing mental health). POL-009 (Mental Wellness at $260/mo) covers pre-existing mental health, under $300."
+  },
+  {
+    "user_id": "USR-024",
+    "query": "I'm 62, non-smoker, have heart disease. I also want cancer coverage just in case. Budget is flexible, up to $700.",
+    "expected_policy_id": "POL-015",
+    "rationale": "Age 62, non-smoker, heart disease + wants cancer coverage. POL-015 (Senior Plus at $680/mo) covers both heart disease and cancer for ages 60-80."
+  },
+  {
+    "user_id": "USR-025",
+    "query": "I'm a 44-year-old smoker with chronic COPD. No other conditions. Budget is $400.",
+    "expected_policy_id": "POL-006",
+    "rationale": "Age 44, smoker, chronic respiratory (COPD), under $400. POL-006 (Smoker Shield at $390/mo) covers chronic respiratory for smokers up to 45."
+  },
+  {
+    "user_id": "USR-026",
+    "query": "I'm 19 and just started my first job. Perfectly healthy, non-smoker. I want the cheapest possible insurance just to have something. Under $100.",
+    "expected_policy_id": "POL-008",
+    "rationale": "Age 19, healthy, non-smoker, under $100. POL-008 (Student at $95/mo) is the only plan under $100."
+  },
+  {
+    "user_id": "USR-027",
+    "query": "I'm 37 and my wife is expecting twins. We need excellent maternity and pediatric coverage. She's 35, healthy, non-smoker. Budget $350.",
+    "expected_policy_id": "POL-010",
+    "rationale": "Wife age 35, non-smoker, healthy, needs maternity + pediatric. POL-010 (Maternity Care at $340/mo) is the dedicated plan, under $350."
+  },
+  {
+    "user_id": "USR-028",
+    "query": "I have a complex situation. I'm 58, I smoke, I have diabetes, and I need respiratory coverage. Budget is around $650.",
+    "expected_policy_id": "POL-014",
+    "rationale": "Age 58, smoker, diabetes + respiratory. POL-014 (Smoker Premium at $620/mo) covers smokers 30-60 with diabetes and respiratory, under $650."
+  },
+  {
+    "user_id": "USR-029",
+    "query": "I'm 31 and I want a plan that covers everything including maternity, mental health, and emergency. Non-smoker, no conditions. Money is not an issue.",
+    "expected_policy_id": "POL-007",
+    "rationale": "Age 31, non-smoker, healthy, wants everything. No budget limit. POL-007 (Ultimate at $750/mo) has the most comprehensive coverage."
+  },
+  {
+    "user_id": "USR-030",
+    "query": "I'm 46, non-smoker, recently had a heart attack. I need cardiac care coverage urgently. Can pay up to $550.",
+    "expected_policy_id": "POL-012",
+    "rationale": "Age 46, non-smoker, heart disease. POL-012 (Cardiac Shield at $520/mo) is the specialized heart plan for ages 40-75, under $550."
+  },
+  {
+    "user_id": "USR-031",
+    "query": "I'm 24, healthy, non-smoker. Don't need anything fancy, just basic coverage. Budget is $160.",
+    "expected_policy_id": "POL-001",
+    "rationale": "Age 24, healthy, non-smoker, under $160. POL-001 (Basic at $150/mo) offers basic coverage within budget."
+  },
+  {
+    "user_id": "USR-032",
+    "query": "My dad is 78, doesn't smoke, has diabetes and needs regular physiotherapy. Budget is $500.",
+    "expected_policy_id": "POL-004",
+    "rationale": "Age 78, non-smoker, diabetes + physiotherapy. POL-004 (Senior at $480/mo) covers ages 55-80 with diabetes and physiotherapy, under $500."
+  },
+  {
+    "user_id": "USR-033",
+    "query": "I smoke and I'm 40 years old. I have no health problems but I want something that covers heart disease and diabetes just in case. Budget $650.",
+    "expected_policy_id": "POL-014",
+    "rationale": "Age 40, smoker, wants diabetes + heart disease coverage. POL-014 (Smoker Premium at $620/mo) covers both for smokers 30-60, under $650."
+  },
+  {
+    "user_id": "USR-034",
+    "query": "I need insurance for my son who is 21, in college, non-smoker, perfectly healthy. Cheapest option please.",
+    "expected_policy_id": "POL-008",
+    "rationale": "Age 21, student, healthy, non-smoker, cheapest. POL-008 (Student at $95/mo) is designed for this demographic."
+  },
+  {
+    "user_id": "USR-035",
+    "query": "I'm 49, non-smoker, I have both diabetes and need mental health support. Looking for something under $600.",
+    "expected_policy_id": "POL-003",
+    "rationale": "Age 49, non-smoker, diabetes + mental health. POL-003 (Premium at $550/mo) covers both diabetes and mental health, under $600."
+  },
+  {
+    "user_id": "USR-036",
+    "query": "I'm 65, non-smoker, and I need comprehensive coverage including cancer screening and heart disease management. Budget is around $700.",
+    "expected_policy_id": "POL-015",
+    "rationale": "Age 65, non-smoker, wants cancer + heart disease coverage. POL-015 (Senior Plus at $680/mo) covers both for ages 60-80, under $700."
+  },
+  {
+    "user_id": "USR-037",
+    "query": "I'm a 39-year-old woman, non-smoker, planning to get pregnant soon. I also have mild anxiety. Need maternity and mental health coverage. Budget $350.",
+    "expected_policy_id": "POL-010",
+    "rationale": "Age 39, non-smoker, needs maternity. POL-010 (Maternity Care at $340/mo) covers maternity. Mental health is not covered but maternity is the priority. Alternatively POL-005 at $280 covers maternity too but no mental health either. Auditor should note the gap."
+  },
+  {
+    "user_id": "USR-038",
+    "query": "I'm 55, smoker, have chronic respiratory issues and diabetes. Can't afford more than $650.",
+    "expected_policy_id": "POL-014",
+    "rationale": "Age 55, smoker, respiratory + diabetes. POL-014 (Smoker Premium at $620/mo) covers smokers 30-60 with diabetes and respiratory, under $650."
+  },
+  {
+    "user_id": "USR-039",
+    "query": "I'm 34 years old, non-smoker, completely healthy. I want the absolute minimum coverage just for legal compliance. Under $115.",
+    "expected_policy_id": "POL-013",
+    "rationale": "Age 34, healthy, non-smoker, minimum coverage, under $115. POL-013 (Budget Saver at $110/mo) is emergency-only for ages 18-40."
+  },
+  {
+    "user_id": "USR-040",
+    "query": "I'm 43, non-smoker, and I have been managing diabetes for 10 years. I also need physiotherapy coverage for a recent knee injury. Under $450.",
+    "expected_policy_id": "POL-011",
+    "rationale": "Age 43, non-smoker, diabetes + physiotherapy. POL-011 (Diabetic Care at $410/mo) covers both, under $450."
+  },
+  {
+    "user_id": "USR-041",
+    "query": "I'm 70, non-smoker, my wife is 68. We both have heart disease. We need a plan that covers cardiac care. Budget $550 each.",
+    "expected_policy_id": "POL-012",
+    "rationale": "Ages 68-70, non-smokers, heart disease. POL-012 (Cardiac Shield at $520/mo) covers heart disease for ages 40-75, under $550."
+  },
+  {
+    "user_id": "USR-042",
+    "query": "I'm 26, non-smoker, healthy, and I want decent all-around coverage including checkups. Budget is $200.",
+    "expected_policy_id": "POL-001",
+    "rationale": "Age 26, healthy, non-smoker, wants checkups, under $200. POL-001 (Basic at $150/mo) includes general checkups."
+  },
+  {
+    "user_id": "USR-043",
+    "query": "I'm a 57-year-old smoker with heart disease and diabetes. I also have COPD. I need the most comprehensive plan I can get regardless of price.",
+    "expected_policy_id": "POL-007",
+    "rationale": "Age 57, smoker, heart disease + diabetes + COPD + no budget limit. POL-007 (Ultimate at $750/mo) covers everything with no restrictions."
+  },
+  {
+    "user_id": "USR-044",
+    "query": "My daughter is 23, just graduated, non-smoker, healthy. She needs basic emergency coverage while job hunting. Under $100.",
+    "expected_policy_id": "POL-008",
+    "rationale": "Age 23, healthy, non-smoker, under $100. POL-008 (Student at $95/mo) fits perfectly."
+  },
+  {
+    "user_id": "USR-045",
+    "query": "I'm 47, non-smoker, and I've been diagnosed with anxiety and depression. I also have early-stage diabetes. Need coverage for both. Budget $560.",
+    "expected_policy_id": "POL-003",
+    "rationale": "Age 47, non-smoker, mental health + diabetes. POL-003 (Premium at $550/mo) covers both mental health and diabetes, under $560."
+  },
+  {
+    "user_id": "USR-046",
+    "query": "I'm 36, smoker, no health issues. I want coverage that also includes respiratory care. Under $400.",
+    "expected_policy_id": "POL-006",
+    "rationale": "Age 36, smoker, healthy, wants respiratory care, under $400. POL-006 (Smoker Shield at $390/mo) covers respiratory for smokers."
+  },
+  {
+    "user_id": "USR-047",
+    "query": "I'm 63, non-smoker, have diabetes and need cataract surgery soon. Budget is $500.",
+    "expected_policy_id": "POL-004",
+    "rationale": "Age 63, non-smoker, diabetes + cataract. But POL-004 is for 55-80 at $480. POL-011 covers diabetes + cataract but max age 65. POL-004 covers both too. Either works, POL-004 at $480 is within budget."
+  },
+  {
+    "user_id": "USR-048",
+    "query": "I'm 32, non-smoker, and my wife wants to have a baby next year. We also want pediatric coverage for after the birth. Budget is about $290.",
+    "expected_policy_id": "POL-005",
+    "rationale": "Age 32, non-smoker, maternity + pediatric, under $290. POL-005 (Family at $280/mo) covers maternity and pediatric."
+  },
+  {
+    "user_id": "USR-049",
+    "query": "I'm 41, smoke socially, have no health conditions. I want a plan that covers everything possible including cancer and heart disease. No budget concerns.",
+    "expected_policy_id": "POL-003",
+    "rationale": "Age 41, smoker, healthy, wants comprehensive coverage. No budget limit. POL-003 (Premium at $550/mo) covers smokers with cancer, heart disease, mental health up to age 65."
+  },
+  {
+    "user_id": "USR-050",
+    "query": "I'm 74, non-smoker, generally healthy for my age but want comprehensive coverage with cancer protection. Can spend up to $700.",
+    "expected_policy_id": "POL-015",
+    "rationale": "Age 74, non-smoker, healthy, wants cancer coverage. POL-015 (Senior Plus at $680/mo) covers cancer for ages 60-80, under $700."
+  }
+]
