@@ -102,8 +102,42 @@ Example output:
 
 CRITICAL: Output ONLY the JSON object. No explanation, no markdown, no extra text before or after."""
 
+    elif protocol == "markdown_json":
+        return base_instructions + """
+
+OUTPUT FORMAT — PROTOCOL C (Markdown JSON — Hybrid):
+First, write 2-4 sentences of natural-language reasoning explaining what you
+extracted from the user's message and any assumptions you made.
+
+Then, at the VERY END of your response, provide the structured extraction
+inside a standard Markdown JSON code block like this:
+
+```json
+{
+  "age": <integer>,
+  "is_smoker": <boolean>,
+  "pre_existing_conditions": [<list of strings>],
+  "monthly_budget": <number>,
+  "coverage_needs": [<list of strings>],
+  "additional_notes": "<string>"
+}
+```
+
+Example output:
+The user is a 42-year-old non-smoker who has been diagnosed with Type 2 diabetes.
+They are specifically looking for coverage that handles their diabetes treatment
+and have set a monthly budget cap of $400. No other conditions or coverage
+requirements were mentioned.
+
+```json
+{"age": 42, "is_smoker": false, "pre_existing_conditions": ["diabetes"], "monthly_budget": 400, "coverage_needs": ["diabetes_management"], "additional_notes": "Has Type 2 diabetes specifically"}
+```
+
+CRITICAL: You MUST include the ```json ... ``` code block at the end. The reasoning
+comes FIRST, then the JSON block."""
+
     else:
-        raise ValueError(f"Unknown protocol: {protocol}. Must be 'text' or 'json'.")
+        raise ValueError(f"Unknown protocol: {protocol}. Must be 'text', 'json', or 'markdown_json'.")
 
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -153,7 +187,7 @@ If NO policy satisfies all hard constraints (age + smoking + budget), select the
 INPUT FORMAT:
 You will receive a free-text paragraph from the Intake Agent describing the user's profile. 
 Read it carefully and extract the relevant details to match against the policy database."""
-    else:
+    elif protocol == "json":
         input_format = """
 
 INPUT FORMAT:
@@ -165,6 +199,17 @@ You will receive a JSON object from the Intake Agent with these keys:
   - coverage_needs (list of strings)
   - additional_notes (string)
 Use these structured fields directly for matching against the policy database."""
+    else:  # markdown_json
+        input_format = """
+
+INPUT FORMAT:
+You will receive a HYBRID payload from the Intake Agent that contains:
+1. Natural language reasoning (2-4 sentences) explaining the user's profile.
+2. A structured JSON object inside a Markdown ```json ... ``` code block.
+
+Extract the JSON block from the payload and use its structured fields for
+matching against the policy database. The natural language section provides
+additional context that may help resolve ambiguities."""
 
     output_format = """
 
@@ -176,7 +221,8 @@ You MUST respond with ONLY a valid JSON object (no markdown fences, no extra tex
   "reasoning": "<1-3 sentence explanation of why this policy was chosen and how it matches the user's needs>"
 }
 
-CRITICAL: Output ONLY the JSON object. Nothing else."""
+CRITICAL: Output ONLY the JSON object. Nothing else.
+IMPORTANT: You must properly escape all control characters (like newlines) inside your JSON strings. Use \\n for line breaks instead of raw newlines."""
 
     return base + input_format + output_format
 
@@ -241,7 +287,8 @@ You MUST respond with ONLY a valid JSON object (no markdown fences, no extra tex
   "audit_reasoning": "<detailed explanation of each check performed and the outcome. If rejected, specify exactly which rule was violated.>"
 }}
 
-CRITICAL: Output ONLY the JSON object. Nothing else."""
+CRITICAL: Output ONLY the JSON object. Nothing else.
+IMPORTANT: You must properly escape all control characters (like newlines) inside your JSON strings. Use \\n for line breaks instead of raw newlines."""
 
 
 # ═══════════════════════════════════════════════════════════════════════

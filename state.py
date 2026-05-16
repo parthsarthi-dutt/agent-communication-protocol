@@ -4,9 +4,11 @@ State Definition for the Insurance Policy Advisory Multi-Agent System.
 This module defines the shared TypedDict state that flows through the LangGraph
 pipeline across all three agents (Intake, Recommender, Auditor).
 
-Two communication protocols are evaluated:
-  - Protocol A ("text"): Free-text unstructured summaries between agents.
-  - Protocol B ("json"): Structured JSON schemas between agents.
+Three communication protocols are evaluated:
+  - Protocol A ("text"):          Free-text unstructured summaries between agents.
+  - Protocol B ("json"):          Structured JSON schemas between agents.
+  - Protocol C ("markdown_json"): Hybrid — natural language reasoning followed
+                                  by a fenced JSON code block.
 """
 
 from typing import TypedDict, Optional, Literal
@@ -22,16 +24,19 @@ class AgentState(TypedDict):
         The original natural-language query from the user describing their
         insurance needs (age, conditions, smoking status, budget, etc.).
 
-    protocol : Literal["text", "json"]
+    protocol : Literal["text", "json", "markdown_json"]
         Which communication protocol is active for this run.
-        - "text"  → Protocol A (free-text summaries between agents)
-        - "json"  → Protocol B (structured JSON schemas between agents)
+        - "text"           → Protocol A (free-text summaries between agents)
+        - "json"           → Protocol B (structured JSON schemas between agents)
+        - "markdown_json"  → Protocol C (reasoning + fenced JSON block)
 
     intake_payload : str
         The output of Agent 1 (Intake Agent).
         - Under Protocol A this is a free-form paragraph summarising the user.
         - Under Protocol B this is a JSON-formatted string with explicit keys
           such as age, is_smoker, pre_existing_conditions, budget, etc.
+        - Under Protocol C this is natural-language reasoning followed by a
+          fenced ```json ... ``` block containing structured data.
 
     recommended_policy_id : Optional[str]
         The policy_id chosen by Agent 2 (Recommender Agent) from the mock
@@ -59,7 +64,7 @@ class AgentState(TypedDict):
     user_input: str
 
     # ── Protocol Selector ───────────────────────────────────────────────
-    protocol: Literal["text", "json"]
+    protocol: Literal["text", "json", "markdown_json"]
 
     # ── Agent 1 → Agent 2 Payload ───────────────────────────────────────
     intake_payload: str

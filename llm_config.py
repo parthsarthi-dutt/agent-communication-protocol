@@ -16,17 +16,47 @@ Usage:
 """
 
 import os
+import itertools
 from dotenv import load_dotenv
 from langchain_core.language_models.chat_models import BaseChatModel
 
 # Load .env from project root
 load_dotenv(override=True)
 
+# ── Global API Key Cycles ──────────────────────────────────────────────
+_groq_key_cycle = None
+
+def _get_groq_key():
+    """Fetches the next Groq API key using a Round-Robin cycle."""
+    global _groq_key_cycle
+    if _groq_key_cycle is None:
+        keys = []
+        # Explicitly use only keys 2, 3, and 4 as requested
+        for i in [2, 3, 4]:
+            k = os.getenv(f"GROQ_API_KEY_{i}")
+            if k: keys.append(k)
+            
+        # Also check the default GROQ_API_KEY
+        default_k = os.getenv("GROQ_API_KEY")
+        if default_k: keys.append(default_k)
+            
+        if not keys:
+            raise ValueError(
+                "No GROQ_API_KEY found. Add GROQ_API_KEY or GROQ_API_KEY_1 to your .env file."
+            )
+            
+        # Remove duplicates while preserving order
+        keys = list(dict.fromkeys(keys))
+        _groq_key_cycle = itertools.cycle(keys)
+        print(f"🔄 Initialized Groq Round-Robin with {len(keys)} API keys.")
+        
+    return next(_groq_key_cycle)
+
 # ── Default model names per provider ────────────────────────────────────
 _DEFAULT_MODELS = {
-    "gemini": "gemini-2.5-flash",
-    "groq": "llama-3.3-70b-versatile",
-    "ollama": "llama3",
+    "gemini": "gemma-4-31b-it",
+    "groq": "meta-llama/llama-4-scout-17b-16e-instruct",
+    "ollama": "qwen2.5:7b-instruct-q4_K_M",
 }
 
 
@@ -34,6 +64,7 @@ def get_llm(
     provider: str | None = None,
     model: str | None = None,
     temperature: float = 0.0,
+    **kwargs
 ) -> BaseChatModel:
     """
     Factory function to create a LangChain ChatModel.
@@ -77,18 +108,14 @@ def get_llm(
             api_key=api_key,
             temperature=temperature,
             convert_system_message_to_human=True,
+            **kwargs
         )
 
     # ── Groq ────────────────────────────────────────────────────────────
     elif provider == "groq":
         from langchain_groq import ChatGroq
 
-        api_key = os.getenv("GROQ_API_KEY")
-        if not api_key:
-            raise ValueError(
-                "GROQ_API_KEY not set. Add it to your .env file.\n"
-                "Get a free key at: https://console.groq.com/keys"
-            )
+        api_key = _get_groq_key()
 
         model_name = model or _DEFAULT_MODELS["groq"]
         return ChatGroq(
