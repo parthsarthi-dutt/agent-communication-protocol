@@ -27,9 +27,9 @@ from datetime import datetime
 from graph import build_graph, run_pipeline
 
 # ── Configuration ────────────────────────────────────────────────────────
-# Using Round-Robin with 3 API keys gives us 90 RPM / 90k TPM.
-# 1 run every 3 seconds = 20 runs/minute = ~90k tokens/minute. Safe.
-API_DELAY_SECONDS = 3.0
+# Single Google key, gemini-2.0-flash-lite (15 RPM limit).
+# 3 calls/run x ~8s call time + 5s delay = ~13s/run = 4.6 runs/min = 13.8 RPM. Safe.
+API_DELAY_SECONDS = 5.0
 
 PROTOCOLS = ["text", "json", "markdown_json"]
 
@@ -125,7 +125,13 @@ def evaluate():
     with open(users_path, "r", encoding="utf-8") as f:
         users = json.load(f)
 
-    total_users = len(users)
+    # Allow limiting users using EVAL_LIMIT_USERS environment variable for fast demos
+    limit_users_env = os.getenv("EVAL_LIMIT_USERS")
+    if limit_users_env:
+        total_users = min(len(users), int(limit_users_env))
+    else:
+        total_users = len(users)
+        
     total_runs = total_users * len(PROTOCOLS)
 
     # ── Load checkpoint or start fresh ──

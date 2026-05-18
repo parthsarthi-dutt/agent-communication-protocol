@@ -25,14 +25,15 @@ load_dotenv(override=True)
 
 # ── Global API Key Cycles ──────────────────────────────────────────────
 _groq_key_cycle = None
+_google_key_cycle = None
 
 def _get_groq_key():
     """Fetches the next Groq API key using a Round-Robin cycle."""
     global _groq_key_cycle
     if _groq_key_cycle is None:
         keys = []
-        # Explicitly use only keys 2, 3, and 4 as requested
-        for i in [2, 3, 4]:
+        # Dynamically scan GROQ_API_KEY_1 through GROQ_API_KEY_20
+        for i in range(1, 21):
             k = os.getenv(f"GROQ_API_KEY_{i}")
             if k: keys.append(k)
             
@@ -48,14 +49,44 @@ def _get_groq_key():
         # Remove duplicates while preserving order
         keys = list(dict.fromkeys(keys))
         _groq_key_cycle = itertools.cycle(keys)
-        print(f"🔄 Initialized Groq Round-Robin with {len(keys)} API keys.")
+        print(f"[Groq] Initialized Round-Robin with {len(keys)} API keys.")
         
     return next(_groq_key_cycle)
 
+
+def _get_google_key():
+    """Fetches the next Google API key using a Round-Robin cycle."""
+    global _google_key_cycle
+    if _google_key_cycle is None:
+        keys = []
+        # Dynamically scan GOOGLE_API_KEY_1 through GOOGLE_API_KEY_20
+        for i in range(1, 21):
+            k = os.getenv(f"GOOGLE_API_KEY_{i}")
+            if k: keys.append(k)
+
+        # Also check the default GOOGLE_API_KEY / GEMINI_API_KEY
+        for env_name in ["GOOGLE_API_KEY", "GEMINI_API_KEY"]:
+            k = os.getenv(env_name)
+            if k: keys.append(k)
+
+        if not keys:
+            raise ValueError(
+                "No GOOGLE_API_KEY found. Add GOOGLE_API_KEY_1 to your .env file.\n"
+                "Get a free key at: https://aistudio.google.com/app/apikey"
+            )
+
+        # Remove duplicates while preserving order
+        keys = list(dict.fromkeys(keys))
+        _google_key_cycle = itertools.cycle(keys)
+        print(f"[Google] Initialized Round-Robin with {len(keys)} API keys.")
+
+    return next(_google_key_cycle)
+
+
 # ── Default model names per provider ────────────────────────────────────
 _DEFAULT_MODELS = {
-    "gemini": "gemma-4-31b-it",
-    "groq": "meta-llama/llama-4-scout-17b-16e-instruct",
+    "gemini": "gemini-3.1-flash-lite",
+    "groq": "llama-3.3-70b-versatile",
     "ollama": "qwen2.5:7b-instruct-q4_K_M",
 }
 
@@ -90,17 +121,7 @@ def get_llm(
     if provider == "gemini":
         from langchain_google_genai import ChatGoogleGenerativeAI
 
-        # Prefer GEMINI_API_KEY (new standard), fall back to GOOGLE_API_KEY
-        api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
-        if not api_key:
-            raise ValueError(
-                "GEMINI_API_KEY not set. Add it to your .env file.\n"
-                "Get a free key at: https://aistudio.google.com/app/apikey"
-            )
-
-        # Avoid the "Both keys are set" warning by unsetting the conflicting one
-        if os.getenv("GOOGLE_API_KEY") and os.getenv("GEMINI_API_KEY"):
-            os.environ.pop("GOOGLE_API_KEY", None)
+        api_key = _get_google_key()
 
         model_name = model or _DEFAULT_MODELS["gemini"]
         return ChatGoogleGenerativeAI(
